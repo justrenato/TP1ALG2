@@ -1,0 +1,14 @@
+Nome: Renato Ribeiro da Silva 	GRR20172113.
+
+Este trabalho foi desenvolvido apenas por mim, uma vez que não encontrei dupla. 
+
+Logo no inicio da execução deste programa é solicidado um cadastro de itens no cardapio, onde é solicitado o nome do item, a descrição e o seu preço. Para a implementação do cardapio foi escolhida a estrutura de dados Lista duplamente encadeada. Onde após o cadastro do primeiro item o programa pergunta se ha mais itens para serem cadastrados. E a cada confirmação o programa cria um novo item, adiciona à lista, le os dados e os escreve no ultimo elemento da fila.
+
+Após o usuario afirmar que não existem mais itens a serem cadastrados no cardápio, o programa imprime na tela o cardapio completo, com o numero do item, o nome, a descrição e o preço de todos os itens que foram cadastrados.
+Em seguida é iniciado a estrutura de dados Fila, onde é solicitado o cadastro dos clientes por ordem de chegada.
+No cadastro de cada cliente é solicitado o nome e também os itens que serão consumidos, para cada consumo é necessario digitar o numero correspondente ao item e teclar enter, após isso confirmar se o cliente pediu outro item do cardapio, digitando 0 quando não houver mais itens consumidos pelo cliente. Nesta parte é feito o calculo da despesa final do cliente. Após o usuário informar que o cliente não consumiu mais itens, é questionado se existem outros clientes a serem cadastrados, e o cadastro de itens consumidos e clientes é repetido até o usuario informar que não ha mais clientes para ser efetuado cadastro.
+
+Quando é terminado o cadastro dos clientes, o programa imprime na tela os Clientes cadastrados informando a posição na fila por ordem de "chegada" (cadastro). No passo seguinte é iniciada a pilha de chocolate com a quantidade de chocolate referente ao numero de clientes cadastrados. Com uma variedade de onze chocolates, eles vão sendo empilhados aleatoriamente. E o programa informa qual forma tomou a pilha de chocolates, desde o primeiro empilhado até o ultimo.
+
+Na sequencia as comandas são impressas na tela, contendo nome do cliente, quais itens foram consumidos, o valor a pagar e o chocolate recebido de cortesia. Para o primeiro cliente chegar é oferecido o ultimo chocolate empilhado.
+As comandas, assim como os chocolates tem ordem de acordo com o primeiro cliente a chegar.

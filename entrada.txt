@@ -1,0 +1,32 @@
+arroz e feijão
+arroz, feijao, fritas e salada.
+15.50
+1
+Macarrão Alho e Olho
+Macarrão, tomate, cebola, alho.
+19.25
+1
+Sobremesa
+Torta de limão
+5.00
+0
+Renato Ribeiro
+1
+1
+2
+1
+3
+0
+1
+Amanda Ventura
+2
+1
+3
+0
+1
+Igor Isume
+1
+1
+3
+0
+0

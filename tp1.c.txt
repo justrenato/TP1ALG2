@@ -1,0 +1,345 @@
+#include <stdio.h> //preciso da entrada e saida padrão.
+#include <stdlib.h>//preciso malloc
+#include <time.h>//preciso função para gerar aleatorios
+
+#define numMaxItens 50
+#define tamMax 200
+
+typedef struct itemCardapio
+{
+	int id;
+	char nome[100];
+	char descricao[500];
+	float preco;
+	struct itemCardapio *ant;
+	struct itemCardapio *prox;
+} itemCardapio;
+
+itemCardapio inicioCardapio;
+
+/*##############FUNÇÕES PARA LISTA DE ITENS DO CARDAPIO################*/
+
+void inicLista(itemCardapio* cardapio) //cria um nodo cabeça para lista duplamente encadeada
+{
+	cardapio->prox = cardapio;
+	cardapio->ant = cardapio;
+	puts("Iniciei a Lista de itens do cardapio\n");
+};
+
+void insereLista(itemCardapio* cardapio) //insere um novo item no final da lista
+{
+	int continua=1, numItens=0;
+	while(continua){
+		/*Esta parte cria e adiciona um novo elemento ao fim da lista*/
+		numItens++;
+		cardapio->ant->prox = (itemCardapio*) malloc (sizeof (itemCardapio));
+		cardapio->ant->prox->prox = cardapio;
+		cardapio->ant->prox->ant = cardapio->ant;
+		cardapio->ant = cardapio->ant->prox;
+
+		/*Esta parte Le os valores do ultimo item como nome, descrição, preço etc*/
+		cardapio->ant->id = numItens;
+		printf("Digite o nome do item: ");
+		scanf("%[^\n]%*c",cardapio->ant->nome);
+		printf("Digite a descrição do item: ");
+		scanf("%[^\n]%*c",cardapio->ant->descricao);
+		printf("Digite o preço do item: ");
+		scanf("%f",&cardapio->ant->preco);
+		scanf("%*c");//essa linha limpa a entrada de dados para o programa nao pular nenhuma leitura de dado
+
+		printf("Deseja inserir novo item? Digite 1 para sim ou 0 para não\n");
+		scanf("%d",&continua);
+		scanf("%*c");
+	}
+}
+
+int vaziaLista(itemCardapio* cardapio)
+{
+	/*se o ponteiro prox apontar pro proprio cardapio, entao lista vazia.*/
+	return (cardapio->prox==cardapio);
+}
+
+void imprimeLista (itemCardapio* cardapio) //Lista todos os elementods do cardapio
+{
+	itemCardapio* aux;
+	if (vaziaLista(&inicioCardapio)) puts("Nenhum item na lista"); 
+	else {
+		aux = cardapio->prox;
+		while (aux != cardapio){
+		printf("              --------------\n");
+		printf("\t\tItem numero %d\n",aux->id);
+		printf("\tNome: %s\n",aux->nome );
+		printf("\tDescrição: %s\n",aux->descricao );
+		printf("\tPreço: %2.2f\n", aux->preco);
+		printf("\n");
+
+		aux = aux->prox;
+
+		}
+	}
+}
+
+
+/*##########################FUNÇOES PARA FILA DE CLIENTES#############################*/
+typedef struct filaClientes
+{
+	int posicaoFila;
+	char nome[100];
+	float conta;
+	int qntItens;
+	int codItens[numMaxItens];
+	struct filaClientes* prox;
+} filaClientes;
+
+typedef struct tipoFila
+{
+	filaClientes* frente;
+	filaClientes* final;
+} tipoFila;
+
+tipoFila inicioClientes;
+
+void inicFila(tipoFila* fila)
+{
+	fila->frente = (filaClientes*) malloc (sizeof (filaClientes));
+	fila->final = fila->frente;
+	fila->final->prox = NULL;
+	puts("Iniciei a Fila de clientes.\n");
+}
+
+int numcliente=0;
+
+void enfileira(tipoFila* fila,itemCardapio* cardapio){ //insere novo cliente na fila
+	int inserirCliente=1,insereItem=1;
+	itemCardapio* aux;
+	while(inserirCliente){
+		int i=0;
+		aux=cardapio->prox;
+		numcliente++;
+		fila->final->prox = (filaClientes*) malloc (sizeof(filaClientes));
+		fila->final = fila->final->prox;
+		fila->final->prox=NULL;
+		fila->final->posicaoFila = numcliente;
+		fila->final->qntItens=0;
+		printf("Digite o nome do cliente:\n");
+		scanf("%[^\n]",fila->final->nome);
+		insereItem=1;
+		while((insereItem)&&(i<numMaxItens)){
+			fila->final->qntItens++;
+			printf("Digite o numero do item consumido pelo cliente\n");
+			scanf("%d",&fila->final->codItens[i]);
+
+			while(aux->id!=fila->final->codItens[i]){
+				aux=aux->prox;
+			}
+			fila->final->conta = fila->final->conta + aux->preco;
+			i++;
+			printf("O cliente consumiu outro item? 1- Sim. 0- Não.\n");
+			scanf("%d",&insereItem);
+			scanf("%*c");
+		}
+
+		printf("Adicionar outro cliente? 1- Sim. 0- Não.\n");
+		scanf("%d",&inserirCliente);
+		scanf("%*c");
+	}
+}
+
+void imprimeFila(tipoFila* fila){
+	filaClientes* aux;
+	aux=fila->frente->prox;
+	for (int i = 0; i < numcliente; ++i)
+	{
+		printf("%d° Cliente da fila: %s\n",i+1,aux->nome);
+		aux=aux->prox;
+	}
+}
+
+
+/*FUNÇOES PILHA DE CHOCOLATE*/
+typedef struct tipipilha
+{
+	int vet[tamMax];
+	int topo;
+} tipoPilha;
+
+tipoPilha pilhaChoco;
+void inicPilha(tipoPilha* pilha){
+	pilha->topo=0;
+	printf("\nIniciei a pilha de chocolates com %d chocolates sortidos.\n",numcliente );
+}
+
+void push (tipoPilha* pilha){ // empilha chocolates conforme o numero de clientes cadastrados
+	int r = rand()% 10;
+	for (int i = 0; i < numcliente; ++i)
+	{
+		r = rand()% 10; // gera os chocolates de forma aleatoria
+		if (pilha->topo == tamMax) puts("pilha de chocolates cheia");
+		else{
+			pilha->vet[pilha->topo]=r;
+			pilha->topo ++;
+		}
+	}
+}
+
+int vaziaPilha (tipoPilha* pilha){
+	return (pilha->topo ==0);
+}
+
+void pop (tipoPilha* pilha)//desempilha o ultimo chocolate empilhado
+{
+	if (vaziaPilha(&pilhaChoco)) puts("acabaram os chocolates =(");
+	else{
+		pilha->topo --;
+
+		switch(pilha->vet[pilha->topo]) //imprime o nome do chocolate gerado
+		{
+			case 0:
+				printf("Chocolate cortesia: Kinder Bueno\n");
+				break ;
+			case 1:
+				printf("Chocolate cortesia: Hershey's\n");			
+				break ;
+			case 2:
+				printf("Chocolate cortesia: Kitkat\n");			
+				break ;
+			case 3:
+				printf("Chocolate cortesia: Suflair\n");			
+				break ;
+			case 4:
+				printf("Chocolate cortesia: Ferrero Rocher\n");			
+				break ;
+			case 5:
+				printf("Chocolate cortesia: Bubbly\n");			
+				break ;
+			case 6:
+				printf("Chocolate cortesia: Snickers\n");			
+				break ;
+			case 7:
+				printf("Chocolate cortesia: Twix\n");			
+				break ;
+			case 8:
+				printf("Chocolate cortesia: Lacta\n");			
+				break ;
+			case 9:
+				printf("Chocolate cortesia: Sonho de Valsa\n");			
+				break ;
+			case 10:
+				printf("Chocolate cortesia: Bombom Cacau Show\n");			
+				break ;
+		}
+	}
+}
+
+void imprimePilha(tipoPilha* pilha){ //imprime como ficou a pilha de chocolates
+	printf("Como ficou a pilha de chocolates:\n");
+	for (int i = 0; i < numcliente; ++i)
+	{
+		switch(pilha->vet[i])
+		{
+			case 0:
+				printf("%d° Chocolate inserido na pilha: Kinder Bueno\n",i+1);
+				break ;
+			case 1:
+				printf("%d° Chocolate inserido na pilha: Hershey's\n",i+1);			
+				break ;
+			case 2:
+				printf("%d° Chocolate inserido na pilha: Kitkat\n",i+1);			
+				break ;
+			case 3:
+				printf("%d° Chocolate inserido na pilha: Suflair\n",i+1);			
+				break ;
+			case 4:
+				printf("%d° Chocolate inserido na pilha: Ferrero Rocher\n",i+1);			
+				break ;
+			case 5:
+				printf("%d° Chocolate inserido na pilha: Bubbly\n",i+1);			
+				break ;
+			case 6:
+				printf("%d° Chocolate inserido na pilha: Snickers\n",i+1);			
+				break ;
+			case 7:
+				printf("%d° Chocolate inserido na pilha: Twix\n",i+1);			
+				break ;
+			case 8:
+				printf("%d° Chocolate inserido na pilha: Lacta\n",i+1);			
+				break ;
+			case 9:
+				printf("%d° Chocolate inserido na pilha: Sonho de Valsa\n",i+1);			
+				break ;
+			case 10:
+				printf("%d° Chocolate inserido na pilha: Bombom Cacau Show\n",i+1);			
+				break ;
+		}
+	}
+
+}
+
+int main(int argc, char const *argv[])
+{
+	puts("================================================================================="); 
+	puts("Inicio da execucao: programa que implementa lista de itens duplamente encadeada, ");
+	puts("fila de clientes, e pilha de chocolates. ");
+	puts("Renato Ribeiro da Silva  -  Disciplina Algoritmos e Estruturas de Dados II");
+	puts("================================================================================="); 
+
+	srand(time(NULL));
+	
+	/*iniciando cardapio*/
+	inicLista(&inicioCardapio);
+	insereLista(&inicioCardapio);
+	puts("====================================");
+	puts("LISTAGEM DOS ITENS CADASTRADOS:");
+	puts("====================================");
+	imprimeLista(&inicioCardapio);
+	puts("====================================");
+
+	/*recebendo os clientes*/
+	inicFila(&inicioClientes);
+	enfileira(&inicioClientes,&inicioCardapio);
+	imprimeFila(&inicioClientes);
+	/*pilha choco*/
+	inicPilha(&pilhaChoco);
+	push(&pilhaChoco);
+	imprimePilha(&pilhaChoco);
+
+	puts("\n================================================================================="); 
+	puts("Listagem do cliente (primeiro a chegar, primeiro a sair), do chocolate recebido ");
+	puts("como cortesia, e do total consumido.");
+	puts("================================================================================="); 
+	puts("\nImpressão das comandas: \n");
+
+
+	filaClientes* aux = inicioClientes.frente->prox;
+	itemCardapio* aux2 = inicioCardapio.prox;
+	for (int i = 0; i < numcliente; ++i ) //verifica cliente por cliente e tudo que foi consumido
+	{
+		printf("\nCliente: %s\n",aux->nome );
+
+		for (int i = 0; i < aux->qntItens; ++i)
+		{
+
+			while(aux->codItens[i]!=aux2->id){
+				aux2=aux2->prox;
+			}
+			printf("\n\t%d° Item consumido:\n\n",i+1);
+			printf("\tNome: %s\n", aux2->nome);
+			printf("\tDescrição: %s\n", aux2->descricao);
+			printf("\tPreço: R$ %2.2f\n", aux2->preco);
+		}
+
+		puts("\t--------------------------\n");
+		printf("\tConsumo total: R$ %2.2f\n\t",aux->conta );
+		pop(&pilhaChoco);
+
+		aux = aux->prox;
+	}
+
+	puts("\n\n======================================"); 
+	puts("Volte sempre ao nosso Restaurante ^-^");
+	puts("======================================"); 	
+	puts("Fim da execucao");
+
+
+	return 0;
+}

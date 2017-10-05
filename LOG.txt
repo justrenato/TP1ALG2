@@ -1,0 +1,169 @@
+=================================================================================
+Inicio da execucao: programa que implementa lista de itens duplamente encadeada, 
+fila de clientes, e pilha de chocolates. 
+Renato Ribeiro da Silva  -  Disciplina Algoritmos e Estruturas de Dados II
+=================================================================================
+Iniciei a Lista de itens do cardapio
+
+Digite o nome do item: arroz e feijão
+Digite a descrição do item: arroz, feijao, fritas e salada.
+Digite o preço do item: 15.50
+Deseja inserir novo item? Digite 1 para sim ou 0 para não
+1
+Digite o nome do item: Macarrão Alho e Olho
+Digite a descrição do item: Macarrão, tomate, cebola, alho.
+Digite o preço do item: 19.25
+Deseja inserir novo item? Digite 1 para sim ou 0 para não
+1
+Digite o nome do item: Sobremesa
+Digite a descrição do item: Torta de limão
+Digite o preço do item: 5.00
+Deseja inserir novo item? Digite 1 para sim ou 0 para não
+0
+====================================
+LISTAGEM DOS ITENS CADASTRADOS:
+====================================
+              --------------
+		Item numero 1
+	Nome: arroz e feijão
+	Descrição: arroz, feijao, fritas e salada.
+	Preço: 15.50
+
+              --------------
+		Item numero 2
+	Nome: Macarrão Alho e Olho
+	Descrição: Macarrão, tomate, cebola, alho.
+	Preço: 19.25
+
+              --------------
+		Item numero 3
+	Nome: Sobremesa
+	Descrição: Torta de limão
+	Preço: 5.00
+
+====================================
+Iniciei a Fila de clientes.
+
+Digite o nome do cliente:
+Renato Ribeiro
+Digite o numero do item consumido pelo cliente
+1
+O cliente consumiu outro item? 1- Sim. 0- Não.
+1
+Digite o numero do item consumido pelo cliente
+2
+O cliente consumiu outro item? 1- Sim. 0- Não.
+1
+Digite o numero do item consumido pelo cliente
+3
+O cliente consumiu outro item? 1- Sim. 0- Não.
+0
+Adicionar outro cliente? 1- Sim. 0- Não.
+1
+Digite o nome do cliente:
+Amanda Ventura
+Digite o numero do item consumido pelo cliente
+2
+O cliente consumiu outro item? 1- Sim. 0- Não.
+1
+Digite o numero do item consumido pelo cliente
+3
+O cliente consumiu outro item? 1- Sim. 0- Não.
+0
+Adicionar outro cliente? 1- Sim. 0- Não.
+1
+Digite o nome do cliente:
+Igor Isume
+Digite o numero do item consumido pelo cliente
+1
+O cliente consumiu outro item? 1- Sim. 0- Não.
+1
+Digite o numero do item consumido pelo cliente
+3
+O cliente consumiu outro item? 1- Sim. 0- Não.
+0
+Adicionar outro cliente? 1- Sim. 0- Não.
+0
+1° Cliente da fila: Renato Ribeiro
+2° Cliente da fila: Amanda Ventura
+3° Cliente da fila: Igor Isume
+
+Iniciei a pilha de chocolates com 3 chocolates sortidos.
+Como ficou a pilha de chocolates:
+1° Chocolate inserido na pilha: Twix
+2° Chocolate inserido na pilha: Snickers
+3° Chocolate inserido na pilha: Kinder Bueno
+
+=================================================================================
+Listagem do cliente (primeiro a chegar, primeiro a sair), do chocolate recebido 
+como cortesia, e do total consumido.
+=================================================================================
+
+Impressão das comandas: 
+
+
+Cliente: Renato Ribeiro
+
+	1° Item consumido:
+
+	Nome: arroz e feijão
+	Descrição: arroz, feijao, fritas e salada.
+	Preço: R$ 15.50
+
+	2° Item consumido:
+
+	Nome: Macarrão Alho e Olho
+	Descrição: Macarrão, tomate, cebola, alho.
+	Preço: R$ 19.25
+
+	3° Item consumido:
+
+	Nome: Sobremesa
+	Descrição: Torta de limão
+	Preço: R$ 5.00
+	--------------------------
+
+	Consumo total: R$ 39.75
+	Chocolate cortesia: Kinder Bueno
+
+Cliente: Amanda Ventura
+
+	1° Item consumido:
+
+	Nome: Macarrão Alho e Olho
+	Descrição: Macarrão, tomate, cebola, alho.
+	Preço: R$ 19.25
+
+	2° Item consumido:
+
+	Nome: Sobremesa
+	Descrição: Torta de limão
+	Preço: R$ 5.00
+	--------------------------
+
+	Consumo total: R$ 24.25
+	Chocolate cortesia: Snickers
+
+Cliente: Igor Isume
+
+	1° Item consumido:
+
+	Nome: arroz e feijão
+	Descrição: arroz, feijao, fritas e salada.
+	Preço: R$ 15.50
+
+	2° Item consumido:
+
+	Nome: Sobremesa
+	Descrição: Torta de limão
+	Preço: R$ 5.00
+	--------------------------
+
+	Consumo total: R$ 20.50
+	Chocolate cortesia: Twix
+
+
+======================================
+Volte sempre ao nosso Restaurante ^-^
+======================================
+Fim da execucao
